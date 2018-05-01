@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { deletePassword } from './actions'
+
 import './password-list.css'
 
 class PasswordList extends Component {
@@ -9,13 +11,14 @@ class PasswordList extends Component {
         <div className='individual-password' key={index}>
          <span><strong>Name:</strong> {pass.name}</span>
          <span><strong>Password:</strong> {pass.password}</span>
+         <button onClick={() => this.props.deletePassword(index)}>Delete</button>
         </div>)
     })
   }
 
   render() {
     return (
-      <div>
+      <div id='password-saved'>
         {this.getList()}
       </div>
     )
@@ -28,4 +31,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(PasswordList)
+const mapDispatchToProps = () =>{
+    return {
+        deletePassword
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps())(PasswordList)

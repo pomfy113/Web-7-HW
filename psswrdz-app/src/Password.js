@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Password.css'
 import { connect } from 'react-redux'
 import { addPassword } from './actions'
+import zxcvbn from 'zxcvbn'
 
 class Password extends Component {
     constructor(props) {
@@ -25,8 +26,6 @@ class Password extends Component {
                 this.setState({ available: this.alpha });
                 break;
             case 'alphanum':
-                console.log(this.num)
-                console.log(this.alpha.concat(this.num))
                 this.setState({ available: this.alpha.concat(this.num) });
                 break;
             case 'all':
@@ -81,6 +80,7 @@ class Password extends Component {
     }
 
     render() {
+        const password_status = zxcvbn(this.state.password)
         return (
             <div>
                 <div>
@@ -104,7 +104,6 @@ class Password extends Component {
                               />
                               <label>Insert hypens</label>
                           </span>
-
                           <select
                               onChange={(e) => {
                                   this.changeAvailable(e.target.value);
@@ -121,6 +120,7 @@ class Password extends Component {
                         Generate Random Password
                     </button>
                     <div>{this.state.name} - {this.state.password}</div>
+                    <div>Password Strength - {password_status.score}</div>
 
                     <div>
                       <button onClick={(e) => {
@@ -135,9 +135,7 @@ class Password extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-
-  }
+  return {}
 }
 
 const mapDispatchToProps = () => {
