@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './password-list.css'
 
 class PasswordList extends Component {
   getList() {
     return this.props.passwords.map((pass, index) => {
       return (
-        <div key={index}>
-          Name: {pass.name} - Password: {pass.password}
+        <div className='individual-password' key={index}>
+         <span><strong>Name:</strong> {pass.name}</span>
+         <span><strong>Password:</strong> {pass.password}</span>
         </div>)
     })
   }
